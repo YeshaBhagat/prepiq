@@ -1,143 +1,167 @@
-# PrepIQ v2 — AI Interview Preparation Platform
+# ⚡ PrepIQ
 
-A complete interview prep platform: AI Mock Interviews, Question Bank, Analytics, Resume Builder, and more.
+**AI-powered interview preparation platform** — practice mock interviews, solve curated questions, build an ATS-optimized resume, and track your progress, all in one place.
 
----
-
-## Quick Start
-
-1. Double-click **`start-backend.bat`** (or `cd backend && npm install && npm run dev`)
-2. Double-click **`start-frontend.bat`** (or `cd frontend && node static-server.js --root . --port 8124`)
-3. Open **http://127.0.0.1:8124**
+🔗 **Live App:** [prepiq-frontend.vercel.app](https://prepiq-frontend.vercel.app)
 
 ---
 
-## Setup
+## ✨ Features
 
-### 1. Create `backend/.env.local`
+### For Candidates
+- 🤖 **AI Mock Interviews** — HR, Technical, Behavioral, and Coding interviews evaluated by Gemini AI
+- 📚 **Question Bank** — 30+ curated questions across DSA, System Design, SQL, Behavioral, and more, with bookmarking
+- 📊 **Analytics Dashboard** — track sessions, scores, topic accuracy, and strengths/weaknesses over time
+- 📄 **Resume Builder** — build a resume with multiple templates, get an instant ATS score, and export to PDF
+- 🏆 **Achievements & Badges** — earn XP and badges for milestones, with email notifications
+- 🔥 **Streaks** — daily practice streak tracking with milestone celebrations
+- 🏅 **Leaderboard** — see how you rank against other learners
+- 📥 **Downloadable Progress Reports** — export a professional PDF summary of your performance
+- 🔗 **Social Sharing** — share earned badges to X, LinkedIn, or WhatsApp
+
+### For Admins
+- 📈 **Platform Analytics** — total users, interviews, signups over time, average scores
+- 👥 **User Management** — search, view activity, promote to admin, deactivate, or delete accounts
+- ❓ **Question Bank Management** — add, edit, or remove questions
+- 🎙️ **Interview Oversight** — view all AI interviews completed across the platform
+- 📑 **Resume Oversight** — view all resumes built by users
+
+### Authentication
+- Email/password signup with secure password hashing
+- **Google OAuth** and **GitHub OAuth** one-click login
+- Forgot/reset password flow with real email delivery (Gmail SMTP)
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | Vanilla HTML, CSS, JavaScript (no framework) |
+| **Backend** | Next.js (API routes only) |
+| **Database** | MongoDB (via Mongoose), hosted on MongoDB Atlas |
+| **AI** | Google Gemini API |
+| **Email** | Nodemailer + Gmail SMTP |
+| **Auth** | JWT, bcrypt, OAuth 2.0 (Google & GitHub) |
+| **PDF Export** | jsPDF |
+| **Hosting** | Vercel (frontend + backend deployed separately) |
+
+---
+
+## 📁 Project Structure
+
 ```
+prepiq/
+├── backend/                  # Next.js API server
+│   ├── lib/
+│   │   ├── models/            # Mongoose schemas (User, Question, AIInterview, etc.)
+│   │   ├── auth-middleware.js # JWT auth guards, CORS
+│   │   ├── email-helper.js    # Gmail SMTP email sending
+│   │   ├── xp-system.js       # XP rewards & badge logic
+│   │   └── streak-helper.js   # Daily streak calculation
+│   └── pages/api/             # REST API routes
+│       ├── auth/               # login, register, OAuth, password reset
+│       ├── admin/               # admin-only endpoints
+│       ├── interview/           # AI interview flow
+│       ├── questions/           # question bank + bookmarks
+│       ├── resume/              # resume builder + ATS analysis
+│       ├── analytics/           # personal analytics
+│       └── leaderboard/
+│
+└── frontend/                  # Static HTML/CSS/JS client
+    ├── index.html              # Landing page
+    ├── auth.html                # Login/Register
+    └── pages/
+        ├── dashboard.html        # Personal + admin dashboard
+        ├── questions.html        # Question bank
+        ├── interview.html        # AI mock interview
+        ├── analytics.html        # Progress analytics
+        ├── resume-builder.html   # Resume builder + ATS
+        ├── achievements.html     # Badges
+        └── leaderboard.html
+```
+
+---
+
+## 🚀 Getting Started Locally
+
+### Prerequisites
+- Node.js v18+
+- A MongoDB database (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) free tier)
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/YeshaBhagat/prepiq.git
+cd prepiq
+```
+
+### 2. Install backend dependencies
+```bash
+cd backend
+npm install
+```
+
+### 3. Configure environment variables
+Create `backend/.env.local`:
+```env
 MONGODB_URI=mongodb://localhost:27017/prepiq
-JWT_SECRET=any-long-random-string
-# Optional — for real AI evaluation in mock interviews:
-# ANTHROPIC_API_KEY=sk-ant-...
+JWT_SECRET=your_long_random_secret
+
+# AI interview evaluation
+GEMINI_API_KEY=your_gemini_api_key
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+
+# Email (Gmail SMTP - use an App Password, not your real password)
+GMAIL_USER=your_email@gmail.com
+GMAIL_APP_PASSWORD=your_16_char_app_password
+
+OAUTH_REDIRECT_BASE=http://127.0.0.1:8124
 ```
 
-### 2. Seed the Question Bank (first run)
-After registering and logging in, make yourself admin in MongoDB:
+### 4. Run the backend
+```bash
+npx next dev
+# Runs on http://localhost:3000
+```
+
+### 5. Run the frontend
+Open `frontend/index.html` with a local server (e.g. VS Code Live Server) — runs on `http://127.0.0.1:5500` or similar.
+
+### 6. Seed the question bank (one-time)
+Make your account an admin directly in MongoDB:
 ```js
-// in mongosh:
-use prepiq
 db.users.updateOne({ email: "your@email.com" }, { $set: { isAdmin: true } })
 ```
-Then call:
+Then log in, grab your token from `localStorage.getItem('prepiq_token')`, and run:
+```bash
+curl -X POST http://localhost:3000/api/questions/seed \
+  -H "Authorization: Bearer YOUR_TOKEN"
 ```
-POST http://127.0.0.1:3000/api/questions/seed
-Authorization: Bearer <your_token>
-```
-This seeds 30 questions across all categories.
 
 ---
 
-## Pages
+## ☁️ Deployment
 
-| Page | URL |
-|------|-----|
-| Home | `/index.html` |
-| Login / Register | `/auth.html` |
-| Forgot Password | `/pages/forgot-password.html` |
-| Dashboard | `/pages/dashboard.html` |
-| Question Bank | `/pages/questions.html` |
-| AI Interview | `/pages/interview.html` |
-| Analytics | `/pages/analytics.html` |
-| Profile | `/pages/profile.html` |
-| Resume Builder | `/pages/resume-builder.html` |
-| Achievements | `/pages/achievements.html` |
+PrepIQ is deployed as **two separate Vercel projects**:
+
+1. **Backend** (`backend/` as root directory, Next.js preset) — handles all `/api/*` routes
+2. **Frontend** (`frontend/` as root directory, static/Other preset) — serves the HTML/CSS/JS client
+
+Set the same environment variables from `.env.local` in the backend's Vercel project settings, and update `OAUTH_REDIRECT_BASE` to your deployed frontend URL. Remember to also update the **Authorized redirect URIs** in your Google Cloud Console and GitHub OAuth App settings to point to your production URLs.
 
 ---
 
-## API Endpoints
+## 📜 License
 
-### Auth
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register |
-| POST | `/api/auth/login` | Login |
-| POST | `/api/auth/logout` | Logout |
-| GET  | `/api/auth/me` | Current user |
-| POST | `/api/auth/forgot-password` | Send reset link |
-| POST | `/api/auth/reset-password` | Reset with token |
-
-### User
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET/PUT | `/api/user/profile` | View/edit profile |
-| POST | `/api/user/change-password` | Change password |
-| DELETE | `/api/user/delete-account` | Delete account |
-
-### Dashboard & Analytics
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/dashboard` | Full dashboard data |
-| GET | `/api/analytics?period=30` | Analytics (7/30/90 days) |
-| GET | `/api/streak` | Streak & calendar data |
-
-### Questions
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/questions?category=&difficulty=&search=` | List questions |
-| GET/POST | `/api/questions/bookmark` | Get/toggle bookmark |
-| POST | `/api/questions/seed` | Seed questions (admin) |
-
-### AI Interview
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/interview` | List interviews |
-| POST | `/api/interview` | Start new interview |
-| GET | `/api/interview/:id` | Get interview |
-| PUT | `/api/interview/:id` | Submit answer |
-| PATCH | `/api/interview/:id` | Complete interview |
-
-### Practice
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/practice/aptitude?test=` | Fetch aptitude test |
-| POST | `/api/practice/aptitude` | Submit & score |
-| GET | `/api/practice/quiz?topic=` | Fetch quiz |
-| POST | `/api/practice/quiz` | Submit & score |
-| GET | `/api/practice/coding?difficulty=&topic=` | Fetch coding challenge |
-| POST | `/api/practice/coding` | Submit code |
-
-### Resume
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET/POST/PUT/DELETE | `/api/resume/builder` | Resume CRUD |
-| POST | `/api/resume/analyze` | ATS analyze PDF |
-
-### Admin
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET/PUT | `/api/admin/users` | Manage users |
+This project is for personal/educational use.
 
 ---
 
-## MongoDB Collections
-
-`users` `questions` `bookmarks` `practicehistories` `aiinterviews` `streaks` `achievements` `resumes`
-
----
-
-## Features Implemented
-
-- ✅ Auth: Login, Register, Forgot/Reset Password, JWT, Logout
-- ✅ User Profile: Edit, Skills, College, Target Role, Change Password, Delete Account
-- ✅ Dashboard: Stats, Weekly chart, Activity feed, Topic accuracy, Streak calendar
-- ✅ Question Bank: 30 seed questions, filter by category/difficulty/search, bookmarks, MCQ modal
-- ✅ AI Mock Interview: HR/Technical/Behavioral/Coding, AI scoring (real if ANTHROPIC_API_KEY set), history
-- ✅ Practice Lab: Aptitude, Quiz, Coding (from v1, now with auth + stat tracking)
-- ✅ Analytics: Daily chart, topic accuracy, strong/weak topics, interview history, sessions table
-- ✅ Progress: practiceCount, score, XP, levels, streaks — all persist to MongoDB
-- ✅ Streak System: Daily tracking, calendar view, milestones
-- ✅ Achievements: 10 badges with XP rewards, locked/earned states
-- ✅ Resume Builder: Multi-section form, live preview, 3 templates, PDF export, ATS analyzer
-- ✅ Gamification: XP points, levels, badges awarded automatically
-- ✅ Admin: User management API
+Built with ❤️ by Yesha Bhagat
