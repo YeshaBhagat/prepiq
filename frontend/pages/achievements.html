@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Achievements — PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/><link rel="stylesheet" href="../auth.css"/><link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav"><a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html">Dashboard</a></li><li><a href="questions.html">Questions</a></li>
+      <li><a href="interview.html">AI Interview</a></li><li><a href="analytics.html">Analytics</a></li>
+      <li><a href="resume-builder.html">Resume</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right"><div class="profile-avatar" id="profileAvatar" role="button" tabindex="0"></div></div>
+  </nav>
+  <main class="app-main">
+    <div class="page-header"><div><h1 class="page-title">Achievements & Badges</h1><p class="page-sub">Your earned badges and XP milestones.</p></div></div>
+    <div class="achievement-summary" id="achSummary"></div>
+    <h3 class="section-sub-head">Earned Badges</h3>
+    <div class="badge-grid-full" id="earnedBadges"><div class="empty-state">No badges yet. Start practicing to earn them!</div></div>
+    <h3 class="section-sub-head" style="margin-top:32px">All Badges</h3>
+    <div class="badge-grid-full" id="allBadges"></div>
+  </main>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="achievements.js"></script>
+</body>
+</html>
+

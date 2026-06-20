@@ -1,0 +1,8 @@
+{
+  "name": "prepiq-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node static-server.js --root . --port 8124"
+  }
+}

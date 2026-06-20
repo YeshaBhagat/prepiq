@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Builder — PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/><link rel="stylesheet" href="../auth.css"/><link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav"><a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html">Dashboard</a></li><li><a href="questions.html">Questions</a></li>
+      <li><a href="interview.html">AI Interview</a></li><li><a href="analytics.html">Analytics</a></li>
+      <li><a href="resume-builder.html" class="active">Resume</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right"><div class="profile-avatar" id="profileAvatar" role="button" tabindex="0"></div></div>
+  </nav>
+  <main class="app-main">
+    <div class="page-header">
+      <div><h1 class="page-title">Resume Builder</h1><p class="page-sub">Build an ATS-optimized resume and analyze it.</p></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-ghost" id="analyzeResumeBtn" type="button">📊 Analyze Existing PDF</button>
+        <button class="btn-primary" id="newResumeBtn" type="button">+ New Resume</button>
+      </div>
+    </div>
+
+    <!-- Saved Resumes List -->
+    <div id="adminResumesView" style="display:none">
+      <div class="page-header"><div><h1 class="page-title">All Resumes (Admin)</h1><p class="page-sub">View resumes built by users and their ATS scores.</p></div></div>
+      <div id="arError" class="form-error"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>User</th><th>Email</th><th>Title</th><th>Template</th><th>ATS Score</th><th>Updated</th></tr></thead>
+          <tbody id="arBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="admin-pagination" id="arPagination"></div>
+    </div>
+    <div id="resumeListSection">
+      <div class="resume-list" id="resumeList"><div class="empty-state">No resumes yet. Click "New Resume" to start.</div></div>
+    </div>
+
+    <!-- Builder Form (hidden by default) -->
+    <div id="resumeBuilderSection" style="display:none">
+      <div class="builder-layout">
+        <!-- Form -->
+        <div class="builder-form-col">
+          <div class="builder-tabs">
+            <button class="b-tab active" data-section="personal">Personal</button>
+            <button class="b-tab" data-section="education">Education</button>
+            <button class="b-tab" data-section="experience">Experience</button>
+            <button class="b-tab" data-section="skills">Skills</button>
+            <button class="b-tab" data-section="projects">Projects</button>
+            <button class="b-tab" data-section="extra">More</button>
+          </div>
+
+          <!-- Personal -->
+          <div class="b-section active" id="bs-personal">
+            <div class="form-row-2">
+              <div class="form-group"><label>Full Name</label><input type="text" id="rb-name" placeholder="Arjun Mehta"/></div>
+              <div class="form-group"><label>Email</label><input type="email" id="rb-email" placeholder="arjun@email.com"/></div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group"><label>Phone</label><input type="text" id="rb-phone" placeholder="+91 98765 43210"/></div>
+              <div class="form-group"><label>Location</label><input type="text" id="rb-location" placeholder="Mumbai, India"/></div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group"><label>LinkedIn</label><input type="text" id="rb-linkedin" placeholder="linkedin.com/in/arjun"/></div>
+              <div class="form-group"><label>GitHub</label><input type="text" id="rb-github" placeholder="github.com/arjun"/></div>
+            </div>
+            <div class="form-group"><label>Professional Summary</label><textarea id="rb-summary" rows="3" placeholder="Brief professional summary..."></textarea></div>
+          </div>
+
+          <!-- Education -->
+          <div class="b-section" id="bs-education">
+            <div id="educationList"></div>
+            <button class="btn-add-item" id="addEducationBtn" type="button">+ Add Education</button>
+          </div>
+
+          <!-- Experience -->
+          <div class="b-section" id="bs-experience">
+            <div id="experienceList"></div>
+            <button class="btn-add-item" id="addExpBtn" type="button">+ Add Experience</button>
+          </div>
+
+          <!-- Skills -->
+          <div class="b-section" id="bs-skills">
+            <div class="form-group"><label>Skills <span class="form-hint">(press Enter to add)</span></label>
+              <div class="skills-input-wrap">
+                <div class="skills-chips" id="rbSkillsChips"></div>
+                <input type="text" id="rbSkillInput" placeholder="e.g. React, Node.js, Python..."/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects -->
+          <div class="b-section" id="bs-projects">
+            <div id="projectList"></div>
+            <button class="btn-add-item" id="addProjectBtn" type="button">+ Add Project</button>
+          </div>
+
+          <!-- More: Certifications, Achievements, Languages -->
+          <div class="b-section" id="bs-extra">
+            <div class="form-group"><label>Certifications</label><div id="certList"></div><button class="btn-add-item" id="addCertBtn" type="button">+ Add Certification</button></div>
+            <div class="form-group" style="margin-top:20px"><label>Achievements</label><div id="achieveList"></div><button class="btn-add-item" id="addAchieveBtn" type="button">+ Add Achievement</button></div>
+            <div class="form-group" style="margin-top:20px"><label>Languages</label><div id="langList"></div><button class="btn-add-item" id="addLangBtn" type="button">+ Add Language</button></div>
+          </div>
+
+          <div class="builder-actions">
+            <button class="btn-ghost" id="cancelBuilderBtn" type="button">Cancel</button>
+            <button class="btn-ghost" id="saveDraftBtn" type="button">💾 Save Draft</button>
+            <button class="btn-primary" id="saveAndPreviewBtn" type="button">Preview & Export →</button>
+          </div>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="builder-preview-col">
+          <div class="preview-header">
+            <span>Live Preview</span>
+            <select id="templateSelect" class="q-filter-sel">
+              <option value="modern">Modern</option>
+              <option value="classic">Classic</option>
+              <option value="minimal">Minimal</option>
+            </select>
+          </div>
+          <div class="resume-preview" id="resumePreview">
+            <div class="empty-state" style="margin:40px auto">Fill in the form to see your resume preview.</div>
+          </div>
+          <div class="preview-actions">
+            <button class="btn-primary" id="exportPdfBtn" type="button">📄 Export PDF</button>
+            <button class="btn-ghost"   id="analyzeBuiltBtn" type="button">📊 Analyze ATS</button>
+            <div id="builtAtsResult" class="resume-result-empty" style="margin-top:16px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATS Analyzer Panel (upload existing PDF) -->
+    <div id="atsAnalyzerSection" style="display:none">
+      <div class="ats-panel">
+        <button class="btn-ghost" id="backFromAtsBtn" style="margin-bottom:16px">← Back</button>
+        <h3>Analyze Existing Resume</h3>
+        <div class="resume-upload">
+          <label class="upload-box" for="atsFile">
+            <span class="upload-icon">+</span>
+            <span class="upload-title">Choose PDF resume</span>
+            <span class="upload-hint" id="atsFileName">No file selected</span>
+          </label>
+          <input id="atsFile" type="file" accept=".pdf,application/pdf"/>
+          <div class="form-group"><label>Target Role</label><input type="text" id="atsRole" value="Software Engineer"/></div>
+          <button class="btn-primary" id="runAtsBtn" type="button">Analyze Resume</button>
+        </div>
+        <div id="atsResult" class="lab-result resume-result-empty">Upload a resume to see your ATS score.</div>
+      </div>
+    </div>
+  </main>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="resume-builder.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Question Bank — PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/><link rel="stylesheet" href="../auth.css"/><link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav"><a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html">Dashboard</a></li><li><a href="questions.html" class="active">Questions</a></li>
+      <li><a href="interview.html">AI Interview</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="resume-builder.html">Resume</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right"><div class="profile-avatar" id="profileAvatar" role="button" tabindex="0"></div></div>
+  </nav>
+  <main class="app-main">
+    <div class="page-header">
+      <div><h1 class="page-title">Question Bank</h1><p class="page-sub">10,000+ questions across all domains</p></div>
+    </div>
+    <!-- Filters -->
+    <div class="q-filters">
+      <input type="search" id="qSearch" class="q-search" placeholder="Search questions..."/>
+      <select id="qCategory" class="q-filter-sel">
+        <option value="">All Categories</option>
+        <option value="DSA">DSA</option><option value="DBMS">DBMS</option><option value="OS">Operating System</option>
+        <option value="CN">Computer Networks</option><option value="OOP">OOP</option><option value="JavaScript">JavaScript</option>
+        <option value="React">React</option><option value="NodeJS">Node.js</option><option value="SQL">SQL</option>
+        <option value="Java">Java</option><option value="Python">Python</option><option value="HR">HR</option>
+        <option value="SystemDesign">System Design</option><option value="Aptitude">Aptitude</option>
+      </select>
+      <select id="qDifficulty" class="q-filter-sel">
+        <option value="">All Difficulties</option>
+        <option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option>
+      </select>
+      <button class="btn-primary" id="qFilterBtn" type="button">Filter</button>
+    </div>
+    <!-- Category chips -->
+    <div class="cat-chips" id="catChips">
+      <button class="cat-chip active" data-cat="">All</button>
+      <button class="cat-chip" data-cat="DSA">DSA</button><button class="cat-chip" data-cat="DBMS">DBMS</button>
+      <button class="cat-chip" data-cat="OS">OS</button><button class="cat-chip" data-cat="CN">Networks</button>
+      <button class="cat-chip" data-cat="OOP">OOP</button><button class="cat-chip" data-cat="JavaScript">JS</button>
+      <button class="cat-chip" data-cat="React">React</button><button class="cat-chip" data-cat="SQL">SQL</button>
+      <button class="cat-chip" data-cat="HR">HR</button><button class="cat-chip" data-cat="SystemDesign">System Design</button>
+    </div>
+    <div class="q-list" id="questionList"><div class="loading-spinner">Loading questions...</div></div>
+    <div class="q-pagination" id="qPagination"></div>
+    <!-- Question Detail Modal -->
+    <div class="modal-overlay" id="qModal">
+      <div class="modal-box" id="qModalBox">
+        <button class="modal-close" id="qModalClose">✕</button>
+        <div id="qModalContent"></div>
+      </div>
+    </div>
+  </main>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="questions.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <link rel="stylesheet" href="../auth.css"/>
+  <link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav" aria-label="App navigation">
+    <a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="questions.html">Questions</a></li>
+      <li><a href="interview.html">AI Interview</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+      <li><a href="resume-builder.html">Resume</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right">
+      <div class="profile-avatar" id="profileAvatar" title="My Profile" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false"></div>
+    </div>
+  </nav>
+
+  <main class="app-main" id="dashboardMain">
+<div id="userDashboardView">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title" id="welcomeMsg">Welcome back! 👋</h1>
+        <p class="page-sub" id="welcomeSub">Here's your preparation overview.</p>
+      </div>
+      <a href="interview.html" class="btn-primary">Start AI Interview →</a>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-tile loading"><div class="stat-tile-num" id="stat-sessions">—</div><div class="stat-tile-label">Practice Sessions</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num accent2" id="stat-streak">—</div><div class="stat-tile-label">🔥 Day Streak</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num green" id="stat-interviews">—</div><div class="stat-tile-label">AI Interviews Done</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num gold" id="stat-score">—</div><div class="stat-tile-label">Avg Interview Score</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num" id="stat-xp">—</div><div class="stat-tile-label">XP Points</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num accent2" id="stat-level">—</div><div class="stat-tile-label">Level</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num green" id="stat-ats">—</div><div class="stat-tile-label">Resume ATS Score</div></div>
+      <div class="stat-tile loading"><div class="stat-tile-num gold" id="stat-badges">—</div><div class="stat-tile-label">Badges Earned</div></div>
+    </div>
+
+    <div class="dash-grid">
+      <!-- Weekly Progress Chart -->
+      <div class="dash-card wide">
+        <div class="dash-card-head"><h3>Weekly Practice</h3><span id="weekTotal" class="dash-badge"></span></div>
+        <div class="bar-chart" id="weeklyChart"></div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="dash-card">
+        <div class="dash-card-head"><h3>Recent Activity</h3><a href="analytics.html" class="dash-link">View all →</a></div>
+        <div class="activity-list" id="activityList"><div class="empty-state">No sessions yet. Start practicing!</div></div>
+      </div>
+
+      <!-- Topic Accuracy -->
+      <div class="dash-card">
+        <div class="dash-card-head"><h3>Topic Accuracy</h3></div>
+        <div class="topic-list" id="topicList"><div class="empty-state">Complete quizzes to see accuracy.</div></div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="dash-card">
+        <div class="dash-card-head"><h3>Recent Badges</h3><a href="achievements.html" class="dash-link">All badges →</a></div>
+        <div class="badge-grid" id="badgeGrid"><div class="empty-state">Complete tasks to earn badges!</div></div>
+      </div>
+
+      <!-- Streak Calendar -->
+      <div class="dash-card wide">
+        <div class="dash-card-head"><h3>Streak Calendar</h3><span id="streakInfo" class="dash-badge"></span></div>
+        <div class="streak-calendar" id="streakCalendar"></div>
+      </div>
+    </div>
+  </div>
+<div id="adminDashboardView" style="display:none">
+<div class="admin-stats-grid" id="adminStats"></div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="users">Users</button>
+      <button class="admin-tab" data-tab="questions">Questions</button>
+    </div>
+
+    <div id="adminUsersTab" class="admin-tab-panel">
+    <div class="admin-toolbar">
+      <input type="text" id="adminSearch" placeholder="Search by name or email..." class="admin-search"/>
+      <button class="btn-primary" id="adminSearchBtn" type="button">Search</button>
+    </div>
+
+    <div id="adminError" class="form-error"></div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>College</th>
+            <th>Joined</th>
+            <th>Active</th>
+            <th>Admin</th>
+          </tr>
+        </thead>
+        <tbody id="adminUsersBody">
+          <tr><td colspan="6" class="empty-state">Loading users...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-pagination" id="adminPagination"></div>
+    </div>
+
+    <div id="adminQuestionsTab" class="admin-tab-panel" style="display:none">
+      <div class="admin-toolbar">
+        <input type="text" id="qSearch" placeholder="Search questions..." class="admin-search"/>
+        <select id="qCategoryFilter" class="admin-search" style="max-width:180px">
+          <option value="">All Categories</option>
+          <option>DSA</option><option>DBMS</option><option>OS</option><option>CN</option>
+          <option>OOP</option><option>Java</option><option>Python</option><option>JavaScript</option>
+          <option>React</option><option>NodeJS</option><option>SQL</option><option>HR</option>
+          <option>SystemDesign</option><option>Aptitude</option><option>Behavioral</option>
+        </select>
+        <button class="btn-primary" id="qSearchBtn" type="button">Search</button>
+        <button class="btn-primary" id="qAddBtn" type="button" style="margin-left:auto">+ Add Question</button>
+      </div>
+      <div id="qError" class="form-error"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Title</th><th>Category</th><th>Difficulty</th><th>Type</th><th>Active</th><th>Actions</th></tr></thead>
+          <tbody id="qBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="admin-pagination" id="qPagination"></div>
+    </div>
+  
+</div>
+  </main>
+
+  <!-- User Activity Modal -->
+  <div id="userActivityModal" class="admin-modal" style="display:none">
+    <div class="admin-modal-content">
+      <button class="admin-modal-close" id="closeUserModal">&times;</button>
+      <div id="userActivityBody"></div>
+    </div>
+  </div>
+
+  <!-- Question Edit Modal -->
+  <div id="questionModal" class="admin-modal" style="display:none">
+    <div class="admin-modal-content">
+      <button class="admin-modal-close" id="closeQuestionModal">&times;</button>
+      <h3 id="questionModalTitle">Add Question</h3>
+      <div id="qFormError" class="form-error"></div>
+      <div class="admin-form">
+        <input type="hidden" id="qId"/>
+        <label>Title<input type="text" id="qTitle"/></label>
+        <label>Description<textarea id="qDescription" rows="3"></textarea></label>
+        <label>Category
+          <select id="qCategory">
+            <option>DSA</option><option>DBMS</option><option>OS</option><option>CN</option>
+            <option>OOP</option><option>Java</option><option>Python</option><option>JavaScript</option>
+            <option>React</option><option>NodeJS</option><option>SQL</option><option>HR</option>
+            <option>SystemDesign</option><option>Aptitude</option><option>Behavioral</option>
+          </select>
+        </label>
+        <label>Difficulty
+          <select id="qDifficulty"><option>Easy</option><option>Medium</option><option>Hard</option></select>
+        </label>
+        <label>Type
+          <select id="qType"><option value="mcq">MCQ</option><option value="subjective">Subjective</option><option value="coding">Coding</option></select>
+        </label>
+        <label>Options (one per line, MCQ only)<textarea id="qOptions" rows="4"></textarea></label>
+        <label>Correct Answer Index (0-based, MCQ only)<input type="number" id="qAnswer" min="0"/></label>
+        <label>Explanation<textarea id="qExplanation" rows="2"></textarea></label>
+        <button class="btn-primary" id="qSaveBtn" type="button">Save Question</button>
+      </div>
+    </div>
+  </div>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="admin.js"></script>
+
+
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  
+  <script src="pages.js"></script>
+  <script src="admin.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
+

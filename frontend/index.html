@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PrepIQ — Smart Interview Preparation</title>
+  <meta name="description" content="AI-powered interview preparation platform. Mock interviews, aptitude tests, coding practice, and resume analysis to help you land your dream job."/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="auth.css"/>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="PrepIQ Home">
+      <span class="logo-icon" aria-hidden="true">⚡</span>
+      PrepIQ
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#practice-lab">Practice Lab</a></li>
+      <li><a href="#how">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    
+
+    <div class="nav-right">
+      <a href="pages/dashboard.html" class="btn-login" id="dashboardBtn" style="display:none">Dashboard</a>
+      <a href="auth.html?tab=login"   class="btn-login"    id="loginBtn">Login</a>
+      <a href="auth.html?tab=register" class="btn-register" id="registerBtn">Get Started →</a>
+      
+    </div>
+      <div class="profile-avatar" id="profileAvatar" title="My Profile" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false"></div>
+  </nav>
+
+  <!-- ===== HERO SLIDER ===== -->
+  <section class="hero" aria-label="Hero carousel">
+
+    <!-- Floating decorative pills -->
+    <div class="float-pill pill-1" aria-hidden="true"><span class="dot"></span> AI-Powered Feedback</div>
+    <div class="float-pill pill-2" aria-hidden="true"><span class="dot"></span> 10,000+ Questions</div>
+    <div class="float-pill pill-3" aria-hidden="true"><span class="dot"></span> 95% Success Rate</div>
+    <div class="float-pill pill-4" aria-hidden="true"><span class="dot"></span> Resume Builder</div>
+
+    <div class="slides-wrapper" role="region" aria-roledescription="carousel">
+
+      <!-- Slide 1 -->
+      <div class="slide active" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5">
+        <span class="slide-badge">🚀 Smart Interview Prep</span>
+        <h1>Ace Every Interview with <em>AI-Powered</em> Practice</h1>
+        <p>Adaptive mock interviews, real-time feedback, and personalized study plans designed to land you the job of your dreams.</p>
+        <div class="slide-cta">
+          <a href="auth.html?tab=register" class="btn-primary">Start Free Practice →</a>
+          <a href="#features" class="btn-ghost">See Features</a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5">
+        <span class="slide-badge">🤖 AI Mock Interviews</span>
+        <h1>Practice with an <em>Intelligent</em> Interviewer 24/7</h1>
+        <p>Our AI simulates real technical and behavioral interviews, adapts to your skill level, and pinpoints exactly where to improve.</p>
+        <div class="slide-cta">
+          <a href="pages/interview.html" class="btn-primary">Try Mock Interview →</a>
+          <a href="pages/interview.html" class="btn-ghost">View Demo</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5">
+        <span class="slide-badge">📚 Question Bank</span>
+        <h1>10,000+ Curated Questions Across <em>Every Domain</em></h1>
+        <p>DSA, System Design, Behavioral, SQL, and more — all organized by company, difficulty, and topic for laser-focused prep.</p>
+        <div class="slide-cta">
+          <a href="pages/questions.html" class="btn-primary">Explore Questions →</a>
+          <a href="pages/questions.html" class="btn-ghost">Browse Topics</a>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5">
+        <span class="slide-badge">📊 Track Your Growth</span>
+        <h1>Visualize Progress with <em>Smart</em> Analytics</h1>
+        <p>Detailed dashboards show your strengths, weaknesses, and improvement over time — so every session counts.</p>
+        <div class="slide-cta">
+          <a href="pages/analytics.html" class="btn-primary">See Analytics →</a>
+          <a href="pages/analytics.html" class="btn-ghost">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="slide" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5">
+        <span class="slide-badge">🏆 Resume Builder</span>
+        <h1>Craft a <em>Standout</em> Resume That Gets Callbacks</h1>
+        <p>ATS-optimized templates, AI-assisted bullet points, and instant feedback to make sure your resume never gets filtered out.</p>
+        <div class="slide-cta">
+          <a href="pages/resume-builder.html" class="btn-primary">Build My Resume →</a>
+          <a href="pages/resume-builder.html" class="btn-ghost">View Templates</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Dot indicators -->
+    <div class="slide-dots" role="tablist" aria-label="Slide navigation">
+      <div class="dot active" role="tab" aria-selected="true"  aria-label="Go to slide 1" tabindex="0" onclick="goTo(0)"></div>
+      <div class="dot"        role="tab" aria-selected="false" aria-label="Go to slide 2" tabindex="0" onclick="goTo(1)"></div>
+      <div class="dot"        role="tab" aria-selected="false" aria-label="Go to slide 3" tabindex="0" onclick="goTo(2)"></div>
+      <div class="dot"        role="tab" aria-selected="false" aria-label="Go to slide 4" tabindex="0" onclick="goTo(3)"></div>
+      <div class="dot"        role="tab" aria-selected="false" aria-label="Go to slide 5" tabindex="0" onclick="goTo(4)"></div>
+    </div>
+
+  </section>
+
+  <!-- ===== STATS STRIP ===== -->
+  <div class="stats-strip" aria-label="Platform statistics">
+    <div class="stat-card">
+      <div class="stat-num">50K+</div>
+      <div class="stat-label">Active Users</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">10K+</div>
+      <div class="stat-label">Interview Questions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">95%</div>
+      <div class="stat-label">Success Rate</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Partner Companies</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">User Rating</div>
+    </div>
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features" aria-labelledby="features-heading">
+    <div class="section-label">Platform Features</div>
+    <h2 class="section-title" id="features-heading">Everything You Need to<br/>Land the Offer</h2>
+    <p class="section-sub">From first practice to final round, PrepIQ covers every angle of interview preparation.</p>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(91,106,245,.15)">🤖</div>
+        <div class="feat-title">AI Mock Interviews</div>
+        <div class="feat-desc">Realistic interview simulations powered by GPT-class models. Get instant, detailed feedback on your answers, tone, and structure.</div>
+        <span class="feat-tag" style="background:rgba(91,106,245,.12);color:var(--accent)">Most Popular</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(52,211,153,.15)">📚</div>
+        <div class="feat-title">Curated Question Bank</div>
+        <div class="feat-desc">10,000+ hand-picked questions from top companies — FAANG, startups, and everything in between — organized by role and difficulty.</div>
+        <span class="feat-tag" style="background:rgba(52,211,153,.12);color:var(--green)">Free Access</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(240,192,96,.15)">📊</div>
+        <div class="feat-title">Progress Analytics</div>
+        <div class="feat-desc">Visual dashboards track your performance over time, highlighting weak spots and recommending exactly what to practice next.</div>
+        <span class="feat-tag" style="background:rgba(240,192,96,.12);color:var(--gold)">Pro Feature</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(167,139,250,.15)">📄</div>
+        <div class="feat-title">Resume Upload</div>
+        <div class="feat-desc">Upload your resume and get a quick readiness check for formatting, keywords, role match, and missing project details.</div>
+        <span class="feat-tag" style="background:rgba(167,139,250,.12);color:var(--accent2)">New</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(244,114,182,.15)">💬</div>
+        <div class="feat-title">Aptitude Tests</div>
+        <div class="feat-desc">Timed quantitative, logical, and verbal drills aligned to placement and screening rounds at top product and service companies.</div>
+        <span class="feat-tag" style="background:rgba(244,114,182,.12);color:#f472b6">Timed Practice</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feat-icon" style="background:rgba(45,212,191,.15)">💻</div>
+        <div class="feat-title">Coding Practice</div>
+        <div class="feat-desc">Solve coding problems by difficulty, track solved counts, and build confidence with structured daily challenges.</div>
+        <span class="feat-tag" style="background:rgba(45,212,191,.12);color:#2dd4bf">Hands-on</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== PRACTICE LAB ===== -->
+  <section id="practice-lab" aria-labelledby="lab-heading">
+    <div class="section-label">Practice Lab</div>
+    <h2 class="section-title" id="lab-heading">Build Interview Skills<br/>With Focused Tools</h2>
+    <p class="section-sub">Upload your resume, take aptitude tests, attempt technical quizzes, and keep a daily coding rhythm in one place.</p>
+
+    <div class="lab-shell">
+      <div class="lab-tabs" role="tablist" aria-label="Practice tools">
+        <button class="lab-tab active" type="button" data-lab="resume"   role="tab" aria-selected="true"  aria-controls="lab-resume">Resume Upload</button>
+        <button class="lab-tab"        type="button" data-lab="aptitude" role="tab" aria-selected="false" aria-controls="lab-aptitude">Aptitude Tests</button>
+        <button class="lab-tab"        type="button" data-lab="quiz"     role="tab" aria-selected="false" aria-controls="lab-quiz">Technical Quizzes</button>
+        <button class="lab-tab"        type="button" data-lab="coding"   role="tab" aria-selected="false" aria-controls="lab-coding">Coding Practice</button>
+      </div>
+
+      <!-- Resume Upload Panel -->
+      <div class="lab-panel active" id="lab-resume" role="tabpanel" aria-labelledby="tab-resume">
+        <div class="lab-copy">
+          <span class="lab-kicker">ATS readiness</span>
+          <h3>Upload your resume for a quick preparation check.</h3>
+          <p>Supported format: PDF only. Upload your resume, choose a target role, and get an ATS score with keyword and section feedback.</p>
+        </div>
+        <form class="resume-upload" id="resumeUploadForm" novalidate>
+          <label class="resume-field" for="resumeRole">
+            <span>Target role</span>
+            <input id="resumeRole" class="resume-input" name="targetRole" type="text" value="Frontend Developer" placeholder="e.g. Frontend Developer" />
+          </label>
+          <label class="upload-box" for="resumeFile">
+            <span class="upload-icon" aria-hidden="true">+</span>
+            <span class="upload-title">Choose resume file</span>
+            <span class="upload-hint" id="resumeFileName">No file selected</span>
+          </label>
+          <input id="resumeFile" type="file" accept=".pdf,application/pdf" aria-label="Upload resume PDF" />
+          <button class="btn-primary" id="resumeAnalyzeBtn" type="submit">Analyze Resume</button>
+        </form>
+        <div class="lab-result resume-result-empty" id="resumeResult" aria-live="polite" aria-atomic="true">
+          Upload a resume to see ATS score, matched keywords, and improvement suggestions.
+        </div>
+      </div>
+
+      <!-- Aptitude Tests Panel -->
+      <div class="lab-panel" id="lab-aptitude" role="tabpanel" aria-labelledby="tab-aptitude">
+        <div class="lab-copy">
+          <span class="lab-kicker">Timed drills</span>
+          <h3>Start with core screening topics.</h3>
+          <p>Pick a test area and practice short rounds designed for placement and interview screening.</p>
+        </div>
+        <div class="test-grid">
+          <button class="test-card" type="button" data-test="Quantitative Aptitude" data-questions="20" data-time="25">
+            Quantitative Aptitude<span>20 questions / 25 min</span>
+          </button>
+          <button class="test-card" type="button" data-test="Logical Reasoning" data-questions="15" data-time="20">
+            Logical Reasoning<span>15 questions / 20 min</span>
+          </button>
+          <button class="test-card" type="button" data-test="Verbal Ability" data-questions="15" data-time="18">
+            Verbal Ability<span>15 questions / 18 min</span>
+          </button>
+        </div>
+        <div class="lab-result" id="aptitudeResult" aria-live="polite">Select an aptitude test to begin.</div>
+      </div>
+
+      <!-- Technical Quizzes Panel -->
+      <div class="lab-panel" id="lab-quiz" role="tabpanel" aria-labelledby="tab-quiz">
+        <div class="lab-copy">
+          <span class="lab-kicker">Technical depth</span>
+          <h3>Choose a subject and check your fundamentals.</h3>
+          <p>Use quick quizzes for revision before technical rounds and campus assessments.</p>
+        </div>
+        <div class="quiz-chips">
+          <button type="button" data-topic="DSA">DSA</button>
+          <button type="button" data-topic="DBMS">DBMS</button>
+          <button type="button" data-topic="Operating Systems">OS</button>
+          <button type="button" data-topic="Computer Networks">CN</button>
+          <button type="button" data-topic="JavaScript">JavaScript</button>
+          <button type="button" data-topic="SQL">SQL</button>
+        </div>
+        <div class="lab-result" id="quizResult" aria-live="polite">Choose a topic to generate a quiz set.</div>
+      </div>
+
+      <!-- Coding Practice Panel -->
+      <div class="lab-panel" id="lab-coding" role="tabpanel" aria-labelledby="tab-coding">
+        <div class="lab-copy">
+          <span class="lab-kicker">Daily problem solving</span>
+          <h3>Practice coding by level and track your next target.</h3>
+          <p>Start with arrays and strings, then move toward recursion, dynamic programming, graphs, and SQL problems.</p>
+        </div>
+        <div class="coding-board">
+          <div>
+            <label for="codingDifficulty">Difficulty</label>
+            <select id="codingDifficulty">
+              <option>Easy</option>
+              <option>Medium</option>
+              <option>Hard</option>
+            </select>
+          </div>
+          <div>
+            <label for="codingTopic">Topic</label>
+            <select id="codingTopic">
+              <option>Arrays</option>
+              <option>Strings</option>
+              <option>Linked List</option>
+              <option>Dynamic Programming</option>
+              <option>Graphs</option>
+            </select>
+          </div>
+          <button class="btn-primary" type="button" id="codingStartBtn">Start Challenge</button>
+        </div>
+        <div class="lab-result" id="codingResult" aria-live="polite">Choose a topic and difficulty to start coding practice.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how" aria-labelledby="how-heading" style="padding-top:0">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title" id="how-heading">Four Steps to Your<br/>Dream Job</h2>
+
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num" aria-hidden="true">01</div>
+        <h3>Create Your Profile</h3>
+        <p>Tell us your target role, experience level, and dream companies. Takes under 2 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num" aria-hidden="true">02</div>
+        <h3>Get Your Study Plan</h3>
+        <p>Our AI builds a personalized prep roadmap with daily goals and milestones.</p>
+      </div>
+      <div class="step">
+        <div class="step-num" aria-hidden="true">03</div>
+        <h3>Practice &amp; Improve</h3>
+        <p>Complete mock interviews and topic drills. Get instant AI feedback after every session.</p>
+      </div>
+      <div class="step">
+        <div class="step-num" aria-hidden="true">04</div>
+        <h3>Land the Offer</h3>
+        <p>Walk into any interview with unshakable confidence and proven preparation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section id="contact" aria-labelledby="cta-heading" style="padding-top:0">
+    <div class="cta-banner">
+      <h2 id="cta-heading">Ready to Crack Your Next Interview?</h2>
+      <p>Join 50,000+ candidates who prepared smarter and got hired faster.</p>
+      <div class="slide-cta" style="--s-accent: var(--accent)">
+        <a href="auth.html?tab=register" class="btn-primary">Start for Free — No Credit Card</a>
+        <a href="pages/interview.html" class="btn-ghost">Schedule a Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer role="contentinfo">
+    <a href="index.html" class="footer-logo" aria-label="PrepIQ Home">
+      <span style="width:26px;height:26px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:7px;display:grid;place-items:center;font-size:.7rem;" aria-hidden="true">⚡</span>
+      PrepIQ
+    </a>
+
+    <ul class="footer-links" role="list">
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Support</a></li>
+    </ul>
+
+    <div class="footer-copy">© 2026 PrepIQ. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Backend API base URL — update this if your backend runs on a different port
+    window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';
+  </script>
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
+

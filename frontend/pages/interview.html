@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Mock Interview — PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/><link rel="stylesheet" href="../auth.css"/><link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav"><a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html">Dashboard</a></li><li><a href="questions.html">Questions</a></li>
+      <li><a href="interview.html" class="active">AI Interview</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="resume-builder.html">Resume</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right"><div class="profile-avatar" id="profileAvatar" role="button" tabindex="0"></div></div>
+  </nav>
+  <main class="app-main">
+    <!-- Start Screen -->
+    <div id="adminInterviewsView" style="display:none">
+      <div class="page-header"><div><h1 class="page-title">All Interviews (Admin)</h1><p class="page-sub">View all AI interviews completed by users.</p></div></div>
+      <div class="admin-toolbar">
+        <select id="aiStatusFilter" class="admin-search" style="max-width:180px">
+          <option value="">All Statuses</option>
+          <option value="completed">Completed</option>
+          <option value="in_progress">In Progress</option>
+        </select>
+        <select id="aiTypeFilter" class="admin-search" style="max-width:180px">
+          <option value="">All Types</option>
+          <option>HR</option><option>Technical</option><option>Behavioral</option><option>Coding</option><option>Resume</option>
+        </select>
+        <button class="btn-primary" id="aiFilterBtn" type="button">Filter</button>
+      </div>
+      <div id="aiError" class="form-error"></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>User</th><th>Email</th><th>Type</th><th>Status</th><th>Score</th><th>Date</th></tr></thead>
+          <tbody id="aiBody"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
+        </table>
+      </div>
+      <div class="admin-pagination" id="aiPagination"></div>
+    </div>
+    <div id="interviewStart">
+      <div class="page-header"><div><h1 class="page-title">AI Mock Interview</h1><p class="page-sub">Practice with an AI interviewer. Get scored, feedback, and improvement tips.</p></div></div>
+      <div class="interview-types">
+        <div class="interview-type-card" data-type="HR">
+          <div class="it-icon">👥</div><div class="it-title">HR Interview</div>
+          <div class="it-desc">Behavioral and personality questions. Practice your story, strengths, and motivation.</div>
+          <div class="it-meta">5 questions • ~15 min</div>
+        </div>
+        <div class="interview-type-card" data-type="Technical">
+          <div class="it-icon">💻</div><div class="it-title">Technical Interview</div>
+          <div class="it-desc">CS fundamentals, data structures, algorithms, system design concepts.</div>
+          <div class="it-meta">5 questions • ~20 min</div>
+        </div>
+        <div class="interview-type-card" data-type="Behavioral">
+          <div class="it-icon">🧠</div><div class="it-title">Behavioral Interview</div>
+          <div class="it-desc">STAR-method questions on teamwork, leadership, conflict resolution.</div>
+          <div class="it-meta">5 questions • ~15 min</div>
+        </div>
+        <div class="interview-type-card" data-type="Coding">
+          <div class="it-icon">⌨️</div><div class="it-title">Coding Interview</div>
+          <div class="it-desc">Write and explain code solutions. AI evaluates logic and approach.</div>
+          <div class="it-meta">5 questions • ~25 min</div>
+        </div>
+      </div>
+      <div class="interview-history-section">
+        <h3>Recent Interviews</h3>
+        <div class="interview-history-list" id="interviewHistoryList"><div class="empty-state">No interviews yet. Start one above!</div></div>
+      </div>
+    </div>
+
+    <!-- Active Interview Screen -->
+    <div id="interviewActive" style="display:none">
+      <div class="interview-header">
+        <div><span class="interview-type-badge" id="interviewTypeBadge"></span><h2 id="interviewTitle">Interview</h2></div>
+        <div class="interview-progress"><span id="qProgress">Q 1 / 5</span><div class="prog-bar"><div class="prog-fill" id="progFill"></div></div></div>
+      </div>
+      <div class="interview-body">
+        <div class="interview-question-box">
+          <div class="iq-num" id="iqNum">Q1</div>
+          <div class="iq-text" id="iqText">Loading...</div>
+        </div>
+        <div class="interview-answer-box">
+          <label for="answerBox">Your Answer</label>
+          <textarea id="answerBox" class="answer-textarea" placeholder="Type your answer here. Be detailed and use examples where possible..."></textarea>
+          <div class="answer-actions">
+            <span class="answer-hint" id="answerHint">Aim for 3-5 sentences minimum</span>
+            <button class="btn-primary" id="submitAnswerBtn" type="button" data-label="Submit Answer →">Submit Answer →</button>
+          </div>
+        </div>
+        <div class="interview-feedback" id="answerFeedback" style="display:none">
+          <div class="feedback-score"><span id="feedbackScore"></span><span id="feedbackRating"></span></div>
+          <p id="feedbackText"></p>
+          <div class="feedback-cols">
+            <div><strong>✅ Strengths</strong><ul id="feedbackStrengths"></ul></div>
+            <div><strong>⚠️ Improve</strong><ul id="feedbackWeaknesses"></ul></div>
+          </div>
+          <button class="btn-primary" id="nextQuestionBtn" type="button">Next Question →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="interviewResults" style="display:none">
+      <div class="results-hero">
+        <div class="results-score-ring" id="resultsScoreRing"><span id="resultsScore">0</span><small>/100</small></div>
+        <h2 id="resultsTitle">Interview Complete!</h2>
+        <p id="resultsSummary"></p>
+        <div class="results-xp" id="resultsXP"></div>
+      </div>
+      <div class="results-grid">
+        <div class="results-card"><h4>💪 Strengths</h4><ul id="resultsStrengths"></ul></div>
+        <div class="results-card"><h4>📈 Areas to Improve</h4><ul id="resultsImprovements"></ul></div>
+      </div>
+      <div class="results-actions">
+        <button class="btn-primary" onclick="location.reload()">Start New Interview</button>
+        <a href="dashboard.html" class="btn-ghost">Back to Dashboard</a>
+      </div>
+    </div>
+  </main>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="interview.js"></script>
+</body>
+</html>
+

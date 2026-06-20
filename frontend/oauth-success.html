@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Signing you in... - PrepIQ</title>
+<style>
+  body { background:#0b0e1a; color:#eee; font-family:'Segoe UI',Arial,sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
+  .box { text-align:center; }
+  .spinner { width:36px; height:36px; border:3px solid #333; border-top-color:#5b6af5; border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 16px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="spinner"></div>
+    <p id="msg">Signing you in...</p>
+  </div>
+  <script>
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
+      const msg = document.getElementById("msg");
+
+      if (!token) {
+        msg.textContent = "Login failed. Redirecting...";
+        setTimeout(() => window.location.href = "/auth.html?error=oauth_failed", 1500);
+        return;
+      }
+
+      try {
+        const API = "http://127.0.0.1:3000";
+        const res = await fetch(API + "/api/auth/me", {
+          headers: { Authorization: "Bearer " + token },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to fetch profile");
+
+        localStorage.setItem("prepiq_token", token);
+        localStorage.setItem("prepiq_session", JSON.stringify(data.user));
+
+        msg.textContent = "Success! Redirecting to your dashboard...";
+        setTimeout(() => window.location.href = "/pages/dashboard.html", 600);
+      } catch (err) {
+        msg.textContent = "Login failed. Redirecting...";
+        setTimeout(() => window.location.href = "/auth.html?error=oauth_failed", 1500);
+      }
+    })();
+  </script>
+</body>
+</html>

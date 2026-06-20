@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile — PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/><link rel="stylesheet" href="../auth.css"/><link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav"><a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html">Dashboard</a></li><li><a href="questions.html">Questions</a></li>
+      <li><a href="interview.html">AI Interview</a></li><li><a href="analytics.html">Analytics</a></li>
+      <li><a href="resume-builder.html">Resume</a></li><li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right"><div class="profile-avatar" id="profileAvatar" role="button" tabindex="0"></div></div>
+  </nav>
+  <main class="app-main">
+    <div class="page-header"><div><h1 class="page-title">My Profile</h1><p class="page-sub">Manage your account and preferences.</p></div></div>
+    <div class="profile-layout">
+      <!-- Left: Avatar + Stats -->
+      <div class="profile-sidebar">
+        <div class="avatar-section">
+          <div class="big-avatar" id="bigAvatar"></div>
+          <div class="avatar-name" id="profileName"></div>
+          <div class="avatar-role" id="profileRole"></div>
+          <div class="avatar-joined" id="profileJoined"></div>
+        </div>
+        <div class="profile-stats-mini">
+          <div class="ps-item"><span class="ps-num" id="ps-xp">0</span><span class="ps-label">XP</span></div>
+          <div class="ps-item"><span class="ps-num" id="ps-level">1</span><span class="ps-label">Level</span></div>
+          <div class="ps-item"><span class="ps-num" id="ps-streak">0</span><span class="ps-label">Streak</span></div>
+          <div class="ps-item"><span class="ps-num" id="ps-sessions">0</span><span class="ps-label">Sessions</span></div>
+        </div>
+        <div class="level-bar-wrap">
+          <div class="level-bar-label"><span id="levelLabel">Level 1</span><span id="xpLabel">0 XP</span></div>
+          <div class="level-bar"><div class="level-fill" id="levelFill"></div></div>
+          <div class="level-bar-next" id="levelNext"></div>
+        </div>
+      </div>
+      <!-- Right: Edit Form + Settings -->
+      <div class="profile-content">
+        <div class="profile-tabs">
+          <button class="p-tab active" data-tab="edit">Edit Profile</button>
+          <button class="p-tab" data-tab="password">Change Password</button>
+          <button class="p-tab" data-tab="danger">Account</button>
+        </div>
+        <!-- Edit Profile -->
+        <div class="p-tab-panel active" id="tab-edit">
+          <div class="form-success" id="editSuccess"></div>
+          <div class="form-err" id="editError"></div>
+          <div class="form-row-2">
+            <div class="form-group"><label>First Name</label><input type="text" id="pFirstName"/></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="pLastName"/></div>
+          </div>
+          <div class="form-group"><label>Bio</label><textarea id="pBio" rows="2" placeholder="Tell us about yourself..." maxlength="300"></textarea></div>
+          <div class="form-row-2">
+            <div class="form-group"><label>College / University</label><input type="text" id="pCollege" placeholder="e.g. IIT Bombay"/></div>
+            <div class="form-group"><label>Target Role</label>
+              <select id="pTargetRole">
+                <option>Software Engineer</option><option>Frontend Developer</option><option>Backend Developer</option>
+                <option>Full Stack Developer</option><option>Data Scientist</option><option>Product Manager</option>
+                <option>DevOps Engineer</option><option>ML Engineer</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Skills <span class="form-hint">(press Enter to add)</span></label>
+            <div class="skills-input-wrap">
+              <div class="skills-chips" id="skillsChips"></div>
+              <input type="text" id="skillInput" placeholder="Add a skill..." />
+            </div>
+          </div>
+          <button class="btn-primary" id="saveProfileBtn" type="button">Save Changes</button>
+        </div>
+        <!-- Change Password -->
+        <div class="p-tab-panel" id="tab-password">
+          <div class="form-success" id="pwSuccess"></div>
+          <div class="form-err" id="pwError"></div>
+          <div class="form-group"><label>Current Password</label><input type="password" id="pwCurrent"/></div>
+          <div class="form-group"><label>New Password</label><input type="password" id="pwNew"/></div>
+          <div class="form-group"><label>Confirm New Password</label><input type="password" id="pwConfirm"/></div>
+          <button class="btn-primary" id="changePwBtn" type="button">Change Password</button>
+        </div>
+        <!-- Danger Zone -->
+        <div class="p-tab-panel" id="tab-danger">
+          <div class="danger-zone">
+            <h4>⚠️ Delete Account</h4>
+            <p>This action is permanent. All your data will be removed.</p>
+            <div class="form-group"><label>Confirm Password</label><input type="password" id="deleteConfirmPw"/></div>
+            <button class="btn-danger" id="deleteAccountBtn" type="button">Delete My Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="profile.js"></script>
+</body>
+</html>
+

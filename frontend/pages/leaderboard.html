@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard - PrepIQ</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css"/><link rel="stylesheet" href="../auth.css"/><link rel="stylesheet" href="pages.css"/>
+</head>
+<body class="app-page">
+  <nav class="app-nav"><a href="../index.html" class="nav-logo"><span class="logo-icon">⚡</span>PrepIQ</a>
+    <ul class="app-nav-links" role="list">
+      <li><a href="dashboard.html">Dashboard</a></li><li><a href="questions.html">Questions</a></li>
+      <li><a href="interview.html">AI Interview</a></li><li><a href="analytics.html">Analytics</a></li>
+      <li><a href="resume-builder.html">Resume</a></li><li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right"><div class="profile-avatar" id="profileAvatar" role="button" tabindex="0"></div></div>
+  </nav>
+  <main class="app-main">
+    <div class="page-header">
+      <div><h1 class="page-title">Leaderboard</h1><p class="page-sub">See how you rank against other learners.</p></div>
+    </div>
+
+    <div id="myRankCard" class="leaderboard-myrank"></div>
+
+    <div id="lbError" class="form-error"></div>
+    <div class="admin-table-wrap">
+      <table class="admin-table leaderboard-table">
+        <thead>
+          <tr><th>Rank</th><th>User</th><th>College</th><th>Level</th><th>XP</th><th>Streak</th><th>Sessions</th></tr>
+        </thead>
+        <tbody id="lbBody"><tr><td colspan="7" class="empty-state">Loading leaderboard...</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+  <script>window.PREPIQ_API_BASE_URL = 'http://127.0.0.1:3000';</script>
+  <script src="pages.js"></script><script src="leaderboard.js"></script>
+</body>
+</html>
