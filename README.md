@@ -2,7 +2,7 @@
 
 **AI-powered interview preparation platform** — practice mock interviews, solve curated questions, build an ATS-optimized resume, and track your progress, all in one place.
 
-🔗 **Live App:** [prepiq-frontend.vercel.app](https://prepiq-web.vercel.app)
+🔗 **Live App:** [prepiq-web.vercel.app](https://prepiq-web.vercel.app)
 
 ---
 
